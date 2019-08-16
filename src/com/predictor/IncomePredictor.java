@@ -1,10 +1,12 @@
 package com.predictor;
 
-import com.predictor.bean.IncomeReport;
+import com.predictor.bean.DeductionReport;
 import com.predictor.bean.IncrementReport;
 import com.predictor.frequency.FrequencyWeight;
 import com.predictor.msg.constant.PromptMessage;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class IncomePredictor {
@@ -39,42 +41,57 @@ public class IncomePredictor {
     }
 
     public static void main(String[] args) {
+       IncomePredictor predictor = new IncomePredictor();
+        List<IncrementReport> incrementReportList = new ArrayList<>();
+        List<DeductionReport> deductionReportList = new ArrayList<>();
+      for(int i=1; i<predictionYear; i++){
+          incrementReportList.add(predictor.generateIncrementReport(i));
+          deductionReportList.add(predictor.generateDeductionReport(i));
+      }
 
-       // System.out.format("%32s%10d%16s", "hi", 1, "hello");
-
-
-
-        IncomePredictor predictor = new IncomePredictor();
-      //  for(int i=1; i<=1; i++)
-
-
-        System.out.println(generateIncrementReport(1).getIncrementAmount());
+      for(IncrementReport incrementReport: incrementReportList){
+          System.out.println(incrementReport.getYear() +" " + incrementReport.getStartingSalary()
+                    + " " + incrementReport.getIncrementPercent() + " " + incrementReport.getNoOfIncrement() + " "
+           + incrementReport.getIncrementAmount());
+      }
     }
 
-    private static IncrementReport generateIncrementReport(int i) {
+    private DeductionReport generateDeductionReport(int i) {
+        DeductionReport deductionReport = new DeductionReport();
+        deductionReport.setYear(i);
+        deductionReport.setStartingSalary(salary);
+        deductionReport.setNoOfDeduction(getNoOfIncrementOrDeduction(deductionFrequency));
+        deductionReport.setDeductionPercent(deduction);
+        deductionReport.setDeductionAmount(getDeductionAmount());
+    }
+
+    private IncrementReport generateIncrementReport(int i) {
         IncrementReport incrementReport = new IncrementReport();
-        incrementReport.setYear(currentYear+1);
+        incrementReport.setYear(i);
         incrementReport.setStartingSalary(salary);
-        incrementReport.setNoOfIncrement(getNoOfIncrement());
-        incrementReport.setIncrementPercent(increment.intValue());
+        incrementReport.setNoOfIncrement(getNoOfIncrementOrDeduction(incrementFrequency));
+        incrementReport.setIncrementPercent(increment);
         incrementReport.setIncrementAmount(getIncrementAmount());
         return incrementReport;
     }
 
+    public Double getDeductionAmount() {
+        int incFrq = getNoOfIncrementOrDeduction(incrementFrequency);
+        Double decrementAmount = salary * (increment/(incrementFrequency*100)) * incFrq ;
+        return decrementAmount;
+    }
+
     private static Double getIncrementAmount(){
-        Double incrementAmount = 0.0;
-        int incrementFrequency = getNoOfIncrement();
-        for(int i =1; i<=incrementFrequency; i++){
-            incrementAmount = (salary * increment.intValue()/incrementFrequency)/100;
-            salary = salary + incrementAmount;
-        }
+        int incFrq = getNoOfIncrementOrDeduction(incrementFrequency);
+        Double incrementAmount = salary * (increment/(incrementFrequency*100)) * incFrq ;
+        salary = salary + incrementAmount;
         return incrementAmount;
     }
 
-    private static int getNoOfIncrement(){
-        if(incrementFrequency.intValue()== FrequencyWeight.ANNUAL.getFrequency())
+    private static int getNoOfIncrementOrDeduction(Double frequency){
+        if(frequency.intValue()== FrequencyWeight.ANNUAL.getFrequency())
             return FrequencyWeight.ONE.getFrequency();
-        else if (incrementFrequency.intValue()== FrequencyWeight.HALF_YEAR.getFrequency())
+        else if (frequency.intValue()== FrequencyWeight.HALF_YEAR.getFrequency())
             return FrequencyWeight.TWO.getFrequency();
         else
             return FrequencyWeight.FOUR.getFrequency();
@@ -112,4 +129,6 @@ public class IncomePredictor {
             }
         return 0.0;
     }
+
+
 }

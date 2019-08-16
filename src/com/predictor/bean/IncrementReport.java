@@ -2,7 +2,7 @@ package com.predictor.bean;
 
 public class IncrementReport extends IncomeReport{
     private int noOfIncrement;
-    private int incrementPercent;
+    private Double incrementPercent;
     private Double incrementAmount;
 
     public int getNoOfIncrement() {
@@ -13,11 +13,11 @@ public class IncrementReport extends IncomeReport{
         this.noOfIncrement = noOfIncrement;
     }
 
-    public int getIncrementPercent() {
+    public Double getIncrementPercent() {
         return incrementPercent;
     }
 
-    public void setIncrementPercent(int incrementPercent) {
+    public void setIncrementPercent(Double incrementPercent) {
         this.incrementPercent = incrementPercent;
     }
 
@@ -27,5 +27,14 @@ public class IncrementReport extends IncomeReport{
 
     public void setIncrementAmount(Double incrementAmount) {
         this.incrementAmount = incrementAmount;
+    }
+
+    @Override
+    public String toString() {
+        return "IncrementReport{" +
+                "noOfIncrement=" + noOfIncrement +
+                ", incrementPercent=" + incrementPercent +
+                ", incrementAmount=" + incrementAmount +
+                '}';
     }
 }

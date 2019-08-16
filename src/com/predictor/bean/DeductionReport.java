@@ -3,7 +3,7 @@ package com.predictor.bean;
 public class DeductionReport extends IncomeReport{
 
     private int noOfDeduction;
-    private int deductionPercent;
+    private Double deductionPercent;
     private Double deductionAmount;
 
     public int getNoOfDeduction() {
@@ -14,11 +14,11 @@ public class DeductionReport extends IncomeReport{
         this.noOfDeduction = noOfDeduction;
     }
 
-    public int getDeductionPercent() {
+    public Double getDeductionPercent() {
         return deductionPercent;
     }
 
-    public void setDeductionPercent(int deductionPercent) {
+    public void setDeductionPercent(Double deductionPercent) {
         this.deductionPercent = deductionPercent;
     }
 

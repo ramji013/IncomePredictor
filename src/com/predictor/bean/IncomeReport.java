@@ -19,4 +19,12 @@ public class IncomeReport {
     public void setStartingSalary(Double startingSalary) {
         this.startingSalary = startingSalary;
     }
+
+    @Override
+    public String toString() {
+        return "IncomeReport{" +
+                "year=" + year +
+                ", startingSalary=" + startingSalary +
+                '}';
+    }
 }
