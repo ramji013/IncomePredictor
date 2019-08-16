@@ -45,17 +45,17 @@ public class IncomePredictor {
 
     public static void main(String[] args) {
 
-        //System.out.format("%5s%20s%25s%15s%20s", "Year", "Starting Salary", "Number of Increments", "Increment %", "Increment Amount");
-       IncomePredictor predictor = new IncomePredictor();
-        List<IncrementReport> incrementReportList = new ArrayList<>();
-        List<DeductionReport> deductionReportList = new ArrayList<>();
-        List<Prediction> predictionList = new ArrayList<>();
 
-      for(int i=1; i<=predictionYear; i++){
-          incrementReportList.add(predictor.generateIncrementReport(i));
-          deductionReportList.add(predictor.generateDeductionReport(i));
-          predictionList.add(predictor.generatePredictionReport(incrementReportList.get(i-1), deductionReportList.get(i-1),i));
-      }
+       IncomePredictor predictor = new IncomePredictor();
+       List<IncrementReport> incrementReportList = new ArrayList<>();
+       List<DeductionReport> deductionReportList = new ArrayList<>();
+       List<Prediction> predictionList = new ArrayList<>();
+
+        for(int i=1; i<=predictionYear; i++){
+              incrementReportList.add(predictor.generateIncrementReport(i));
+              deductionReportList.add(predictor.generateDeductionReport(i));
+              predictionList.add(predictor.generatePredictionReport(incrementReportList.get(i-1), deductionReportList.get(i-1),i));
+        }
 
         predictor.printIncrementReport(incrementReportList);
         predictor.printDeductionReport(deductionReportList);
@@ -71,14 +71,12 @@ public class IncomePredictor {
         System.out.println();
         System.out.println("--------------------------------------------------------------------------------------------");
         System.out.format("%5d%20f%25d%15f%20f", header1, header2, header3, header4, header5);
-        //System.out.println("--------------------------------------------------------------------");
     }
 
     public void printPrediction(int header1, Double header2, Double header3, Double header4, Double header5){
         System.out.println();
         System.out.println("-------------------------------------------------------------------------------------------");
         System.out.format("%5d%20f%22f%20f%20f", header1, header2, header3, header4, header5);
-        //System.out.println("--------------------------------------------------------------------");
     }
 
     private void printIncrementReport(List<IncrementReport> incrementReportList) {
