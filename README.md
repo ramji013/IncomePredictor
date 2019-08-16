@@ -4,7 +4,6 @@ The application will predict the Income and deductions
 It is Java based application. Get input from the console.
 
 The program prompt for:
-
 a. The starting salary
 b.Increment to be received in percent
 c.How frequently is increment received (quarterly, half-yearly, annually etc.)
