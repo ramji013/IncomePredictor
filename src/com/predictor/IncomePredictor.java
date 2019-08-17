@@ -135,18 +135,16 @@ public class IncomePredictor {
 
     public Double getDeductionAmount() {
         int dedutionFrq = getNoOfIncrementOrDeduction(incrementFrequency);
-        Double amount = deductionSalary == 0.0 ? salary: deductionSalary;
-        Double decrementAmount = amount * (deduction/(dedutionFrq*100)) * dedutionFrq ;
-        deductionSalary = amount - decrementAmount;
-        return decrementAmount;
+        Double presentValue = deductionSalary == 0.0 ? salary: deductionSalary;
+        deductionSalary = presentValue * Math.pow((1 - (deduction/(dedutionFrq * 100))), dedutionFrq) ;
+        return presentValue - deductionSalary;
     }
 
     private static Double getIncrementAmount(){
         int incFrq = getNoOfIncrementOrDeduction(incrementFrequency);
-        Double amount = incrementSalary == 0.0 ? salary: incrementSalary;
-        Double incrementAmount = amount * (increment/(incFrq*100)) * incFrq ;
-        incrementSalary = amount + incrementAmount;
-        return incrementAmount;
+        Double presentValue = incrementSalary == 0.0 ? salary: incrementSalary;
+        incrementSalary = presentValue * Math.pow((1 + (increment/(incFrq * 100))), incFrq);
+        return incrementSalary - presentValue;
     }
 
     private static int getNoOfIncrementOrDeduction(Double frequency){
